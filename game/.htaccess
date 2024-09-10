@@ -1,0 +1,24 @@
+# Passenger setup for Node.js
+PassengerAppRoot "/home/nxrpyggb/public_html/game"
+PassengerBaseURI "/game"
+PassengerNodejs "/home/nxrpyggb/nodevenv/public_html/game/18/bin/node"
+PassengerAppType node
+PassengerStartupFile server.js
+
+# Set environment variables for PHP
+<IfModule Litespeed>
+    SetEnv DB_HOST localhost
+    SetEnv DB_NAME nxrpyggb_rpg
+    SetEnv DB_PASSWORD EdaKeskin
+    SetEnv DB_USER nxrpyggb_elisa
+    SetEnv SESSION_SECRET 1949
+</IfModule>
+
+# PHP request handling
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)\.php$ /public/$1.php [L]
+
+# Fallback to server.js if no matching PHP file is found
+RewriteRule ^(.*)$ /server.js [L]
